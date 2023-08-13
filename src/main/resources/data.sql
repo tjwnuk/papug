@@ -1,5 +1,6 @@
-INSERT INTO PapugUser (username, email, fullname, password, phoneNumber)
+INSERT INTO papug_user (username, email, fullname, password, phone_number)
 VALUES
+  ('admin', 'mark.admin@example.com', 'Mark Admin', 'hashed_password0', '111-222-3333'),
   ('jan_kowalski', 'jan.kowalski@example.com', 'Jan Kowalski', 'hashed_password1', '123-456-7890'),
   ('anna_nowak', 'anna.nowak@example.com', 'Anna Nowak', 'hashed_password2', '987-654-3210'),
   ('piotr_wojcik', 'piotr.wojcik@example.com', 'Piotr Wójcik', 'hashed_password3', '555-123-4567'),
