@@ -26,7 +26,7 @@ public class PapugUserController {
 
         response = header.concat(response);
         for (PapugUser papugUser : papugUserService.getAllUsers()) {
-            response = response.concat(papugUser.getFullname() + "<br>");
+            response = response.concat(papugUser.getFullname() + " : " + papugUser.getAccountType() + " <br>");
         }
 
         return response;
