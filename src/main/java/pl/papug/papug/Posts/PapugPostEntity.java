@@ -1,13 +1,17 @@
 package pl.papug.papug.Posts;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+import lombok.NoArgsConstructor;
 
 @Entity
+@NoArgsConstructor
 public class PapugPostEntity {
-    private @Id @GeneratedValue Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
     private String title;
+
+    @Column(name="CONTENT", length=512)
     private String content;
 
     PapugPostEntity(String title, String content) {

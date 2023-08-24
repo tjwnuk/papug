@@ -4,4 +4,10 @@
 
 <h3>Home Page</h3>
 
+{% for post in posts %}
+
+<p>{{post.getId()}}. <a href = "/post/{{post.getId()}}">{{post.getTitle()}}</a></p>
+
+{% endfor %}
+
 {% endblock %}
