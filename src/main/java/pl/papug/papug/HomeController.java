@@ -1,9 +1,13 @@
 package pl.papug.papug;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
+import org.springframework.data.web.SortDefault;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.ui.Model;
 import pl.papug.papug.Posts.PapugPostEntity;
 import pl.papug.papug.Posts.PapugPostRepository;
@@ -25,6 +29,17 @@ public class HomeController {
         List<PapugPostEntity> postsList = papugPostRepository.findAll();
         model.addAttribute("posts", postsList);
         return "home/index";
+    }
+
+//    @GetMapping("/page/{page}")
+    @RequestMapping(value={"/page", "/page/{page}"}, method = RequestMethod.GET)
+    public ResponseEntity<Page<PapugPostEntity>> page(Model model, @PageableDefault(page=0, size = 5)
+                               @SortDefault.SortDefaults({
+                               @SortDefault(sort = "id", direction = Sort.Direction.DESC),
+                       })
+                       Pageable pageable) {
+        Page pageContent = papugPostRepository.findAll(pageable);
+        return ResponseEntity.ok(pageContent);
     }
 
     @GetMapping("/post/{id}")
