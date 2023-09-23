@@ -25,6 +25,8 @@ public class HomeController {
         this.papugPostRepository = papugPostRepository;
     }
 
+//    Commented out because method entriesList took its role
+
 //    @GetMapping("/")
 //    public String index(Model model) {
 //        List<PapugPostEntity> postsList = papugPostRepository.findAll();
@@ -32,8 +34,8 @@ public class HomeController {
 //        return "home/index";
 //    }
 
-    @RequestMapping(value={"/", "/entries", "/entries/{page}"}, method = RequestMethod.GET)
-    public String page(Model model, @PathVariable(required = false) Integer page) {
+    @RequestMapping(value={"/", "/page", "/page/{page}"}, method = RequestMethod.GET)
+    public String index(Model model, @PathVariable(required = false) Integer page) {
         if (page == null) {
             page = 0;
         }

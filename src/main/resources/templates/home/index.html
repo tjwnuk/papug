@@ -6,8 +6,19 @@
 
 {% for post in posts %}
 
-<p>{{post.getId()}}. <a href = "/post/{{post.getId()}}">{{post.getTitle()}}</a></p>
+<div class="container mt-5">
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">
+                <p>{{post.getId()}}. <a href = "/post/{{post.getId()}}">{{post.getTitle()}}</a></p>
+            </h5>
+            <p class="card-text">{{post.getContent()}}</p>
 
+        </div>
+
+    </div>
+
+</div>
 {% endfor %}
 
 {% endblock %}
