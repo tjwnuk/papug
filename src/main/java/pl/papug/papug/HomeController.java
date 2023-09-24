@@ -35,10 +35,16 @@ public class HomeController {
         Sort sort = Sort.by(Sort.Order.desc("id"));
 
         pageable = PageRequest.of(page, 5, sort);
+
+        int pageNumber = pageable.getPageNumber();
+        int numberOfAllPages = pageable.getPageSize();
+
         Page pageContent = papugPostRepository.findAll(pageable);
         List<PapugPostEntity> posts = pageContent.toList();
 
         model.addAttribute("posts", posts);
+        model.addAttribute("pageNumber", pageNumber);
+        model.addAttribute("numberOfAllPages", numberOfAllPages);
         return "home/index";
     }
 
