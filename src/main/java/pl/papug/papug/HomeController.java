@@ -45,6 +45,10 @@ public class HomeController {
         model.addAttribute("posts", posts);
         model.addAttribute("pageNumber", pageNumber);
         model.addAttribute("numberOfAllPages", numberOfAllPages);
+
+        String currentPage = "index";
+        model.addAttribute("currentPage", currentPage);
+
         return "home/index";
     }
 
