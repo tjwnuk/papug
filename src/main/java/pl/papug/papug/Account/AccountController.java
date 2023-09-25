@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class AccountController {
 
-    @GetMapping("/account")
+    @GetMapping("/my-account")
     public String userDetails(Model model) {
 
         return "account/details";

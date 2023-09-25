@@ -15,10 +15,9 @@ public class SecurityConfig {
 //    CommandLineRunner initUsers(UserManagementRepository repository) {
 //        return args -> {
 //            repository.save(new UserAccount("user", "password", "ROLE_USER"));
+//            repository.save(new UserAccount("alice", "password", "ROLE_USER"));
+//            repository.save(new UserAccount("bob", "password", "ROLE_USER"));
 //            repository.save(new UserAccount("admin", "password", "ROLE_ADMIN"));
-//            repository.save(new UserAccount("tom", "password", "ROLE_ADMIN"));
-//            repository.save(new UserAccount("marcin", "password", "ROLE_ADMIN"));
-//            repository.save(new UserAccount("adam", "password", "ROLE_ADMIN"));
 //        };
 //    }
 
@@ -33,6 +32,7 @@ public class SecurityConfig {
                 .requestMatchers("/login").permitAll() //
                 .requestMatchers("/", "/about", "/about/**", "/images/**", "/page","/post/**", "/page/", "/page/**").permitAll() //
                 .requestMatchers(HttpMethod.GET, "/api/**").authenticated() //
+                .requestMatchers("/my-account", "/my-account/??").permitAll() //
                 .requestMatchers("/admin").hasRole("ADMIN") //
                 .requestMatchers(HttpMethod.POST, "/new-video", "/api/**").hasRole("ADMIN") //
                 .anyRequest().denyAll() //
@@ -40,6 +40,7 @@ public class SecurityConfig {
                 .formLogin() //
                 .and() //
                 .httpBasic();
+
         return http.build();
     }
 }
