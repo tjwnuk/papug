@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.ui.Model;
 import pl.papug.papug.Posts.PapugPostEntity;
 import pl.papug.papug.Posts.PapugPostRepository;
+import pl.papug.papug.Posts.PapugPostService;
 
 import java.util.List;
 import java.util.Optional;
@@ -20,9 +21,11 @@ import java.util.Optional;
 public class HomeController {
 
     private PapugPostRepository papugPostRepository = null;
+    private PapugPostService papugPostService = null;
 
-    HomeController(PapugPostRepository papugPostRepository) {
+    HomeController(PapugPostRepository papugPostRepository, PapugPostService papugPostService) {
         this.papugPostRepository = papugPostRepository;
+        this.papugPostService = papugPostService;
     }
 
     @RequestMapping(value={"/", "/page", "/page/{page}"}, method = RequestMethod.GET)
@@ -34,10 +37,12 @@ public class HomeController {
 //        Sort descending
         Sort sort = Sort.by(Sort.Order.desc("id"));
 
-        pageable = PageRequest.of(page, 5, sort);
+        Integer pageSize = 10;
+
+        pageable = PageRequest.of(page, pageSize, sort);
 
         int pageNumber = pageable.getPageNumber();
-        int numberOfAllPages = pageable.getPageSize();
+        int numberOfAllPages = papugPostService.getEntities(pageNumber, pageSize).getTotalPages() - 1;
 
         Page pageContent = papugPostRepository.findAll(pageable);
         List<PapugPostEntity> posts = pageContent.toList();

@@ -16,6 +16,9 @@ public class SecurityConfig {
 //        return args -> {
 //            repository.save(new UserAccount("user", "password", "ROLE_USER"));
 //            repository.save(new UserAccount("admin", "password", "ROLE_ADMIN"));
+//            repository.save(new UserAccount("tom", "password", "ROLE_ADMIN"));
+//            repository.save(new UserAccount("marcin", "password", "ROLE_ADMIN"));
+//            repository.save(new UserAccount("adam", "password", "ROLE_ADMIN"));
 //        };
 //    }
 

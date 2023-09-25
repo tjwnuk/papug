@@ -3,6 +3,8 @@ package pl.papug.papug.Posts;
 import jakarta.persistence.*;
 import lombok.NoArgsConstructor;
 
+import java.util.Date;
+
 @Entity
 @NoArgsConstructor
 public class PapugPostEntity {
@@ -13,6 +15,10 @@ public class PapugPostEntity {
 
     @Column(name="CONTENT", length=512)
     private String content;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    private Date date;
 
     PapugPostEntity(String title, String content) {
         this.id = null;
