@@ -2,6 +2,7 @@ package pl.papug.papug.Posts;
 
 import jakarta.persistence.*;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.util.Date;
 
@@ -17,7 +18,8 @@ public class PapugPostEntity {
     private String content;
 
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    @Column(columnDefinition = "TIMESTAMP")
+    @CreationTimestamp
     private Date date;
 
     PapugPostEntity(String title, String content) {
@@ -32,6 +34,10 @@ public class PapugPostEntity {
 
     public String getTitle() {
         return title;
+    }
+
+    public Date getDate() {
+        return date;
     }
 
     public void setTitle(String newTitle) {
