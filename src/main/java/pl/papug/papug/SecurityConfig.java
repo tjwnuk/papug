@@ -32,7 +32,7 @@ public class SecurityConfig {
                 .requestMatchers("/login").permitAll() //
                 .requestMatchers("/", "/about", "/about/**", "/images/**", "/page","/post/**", "/page/", "/page/**").permitAll() //
                 .requestMatchers(HttpMethod.GET, "/api/**").authenticated() //
-                .requestMatchers("/my-account", "/my-account/??").permitAll() //
+                .requestMatchers("/my-account", "/my-account/??").hasAnyRole("USER", "ADMIN")//
                 .requestMatchers("/admin").hasRole("ADMIN") //
                 .requestMatchers(HttpMethod.POST, "/new-video", "/api/**").hasRole("ADMIN") //
                 .anyRequest().denyAll() //
