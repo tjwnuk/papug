@@ -8,8 +8,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class AccountController {
 
     @GetMapping("/my-account")
-    public String userDetails(Model model) {
+    public String myAccount(Model model) {
 
+        model.addAttribute("currentPage", "myAccount");
         return "account/details";
     }
 }
