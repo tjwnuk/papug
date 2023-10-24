@@ -1,38 +1,40 @@
-package pl.papug.papug;
+package pl.papug.papug.Security;
 
-import jakarta.persistence.ElementCollection;
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
+import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 
 @Entity
-public class UserAccount {
+public class UserAccount implements UserDetails {
 
+    @Getter
     @Id
     @GeneratedValue //
     private Long id;
+    @Getter
+    @Column(unique = true)
     private String username;
+    @Getter
     private String password;
+    @Getter
+    private String role;
     @ElementCollection(fetch = FetchType.EAGER) //
     private List<GrantedAuthority> authorities = //
             new ArrayList<>();
 
-    protected UserAccount() {}
+    protected UserAccount() {
+    }
 
-    public UserAccount(String username, String password, String... authorities) {
+    public UserAccount(String username, String password, String role, String... authorities) {
         this.username = username;
         this.password = password;
+        this.role = role;
         this.authorities = Arrays.stream(authorities) //
                 .map(SimpleGrantedAuthority::new) //
                 .map(GrantedAuthority.class::cast) //
@@ -47,24 +49,32 @@ public class UserAccount {
                 .build();
     }
 
-    public Long getId() {
-        return id;
-    }
-
     public void setId(Long id) {
         this.id = id;
     }
 
-    public String getUsername() {
-        return username;
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
     }
 
     public void setUsername(String username) {
         this.username = username;
-    }
-
-    public String getPassword() {
-        return password;
     }
 
     public void setPassword(String password) {
@@ -103,4 +113,11 @@ public class UserAccount {
         return "User{" + "id=" + id + ", username='" + username + '\'' + ", password='" + password + '\'' + ", authorities="
                 + authorities + '}';
     }
+
+    public Collection<? extends GrantedAuthority> getRoles() {
+        List<GrantedAuthority> authorities = new ArrayList<>();
+        authorities.add(new SimpleGrantedAuthority(this.role));
+        return authorities;
+    }
+
 }

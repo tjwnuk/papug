@@ -1,12 +1,19 @@
 package pl.papug.papug;
 
-import org.springframework.boot.CommandLineRunner;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.crypto.password.NoOpPasswordEncoder;
+import pl.papug.papug.Security.UserRepository;
+import pl.papug.papug.Security.UserManagementRepository;
+import pl.papug.papug.Security.UserAccount;
+import org.springframework.boot.CommandLineRunner;
 
 @Configuration
 public class SecurityConfig {
@@ -14,33 +21,57 @@ public class SecurityConfig {
 //    @Bean
 //    CommandLineRunner initUsers(UserManagementRepository repository) {
 //        return args -> {
-//            repository.save(new UserAccount("user", "password", "ROLE_USER"));
-//            repository.save(new UserAccount("alice", "password", "ROLE_USER"));
-//            repository.save(new UserAccount("bob", "password", "ROLE_USER"));
-//            repository.save(new UserAccount("admin", "password", "ROLE_ADMIN"));
+//            repository.save(new UserAccount("admin", "pass", "ROLE_ADMIN"));
+//            repository.save(new UserAccount("user", "pass", "ROLE_USER"));
+//            repository.save(new UserAccount("alice", "pass", "ROLE_USER"));
+//            repository.save(new UserAccount("bob", "pass", "ROLE_USER"));
 //        };
 //    }
 
-    @Bean
-    UserDetailsService userService(UserRepository repo) {
-        return username -> repo.findByUsername(username).asUser();
+//    @Bean
+//    UserDetailsService userService(UserRepository repo) {
+//        return username -> repo.findByUsername(username).asUser();
+//    }
+
+    private UserRepository userRepository;
+
+    public SecurityConfig(UserRepository userRepository) {
+        this.userRepository = userRepository;
     }
 
     @Bean
-    SecurityFilterChain configureSecurity(HttpSecurity http) throws Exception {
-        http.authorizeHttpRequests() //
-                .requestMatchers("/login").permitAll() //
-                .requestMatchers("/", "/about", "/about/**", "/images/**", "/page","/post/**", "/page/", "/page/**").permitAll() //
-                .requestMatchers(HttpMethod.GET, "/api/**").authenticated() //
-                .requestMatchers("/my-account", "/my-account/??").hasAnyRole("USER", "ADMIN")//
-                .requestMatchers("/admin").hasRole("ADMIN") //
-                .requestMatchers(HttpMethod.POST, "/new-video", "/api/**").hasRole("ADMIN") //
-                .anyRequest().denyAll() //
-                .and() //
-                .formLogin() //
-                .and() //
-                .httpBasic();
+    public PasswordEncoder passwordEncoder() {
+        return NoOpPasswordEncoder.getInstance();
+    }
 
+    @Bean
+    public UserDetailsService userDetailsService() {
+        return username -> {
+            UserAccount user = userRepository.findByUsername(username);
+            if (user != null) {
+                return new org.springframework.security.core.userdetails.User(
+                        user.getUsername(),
+                        user.getPassword(),
+                        user.getRoles()
+                );
+            }
+            throw new Error("User not found.");
+        };
+    }
+
+    @Bean
+    public SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
+        http
+                .authorizeRequests(authorizeRequests ->
+                        authorizeRequests
+                                .requestMatchers("/login").permitAll()
+                                .requestMatchers("/", "/about", "/about/all", "/images/**", "/page", "/post/**", "/page/", "/page/**").permitAll()
+                                .requestMatchers("/my-account", "/my-account/**").hasAnyRole("USER", "ADMIN")
+                                .requestMatchers("/admin").hasRole("ADMIN")
+                                .anyRequest().denyAll()
+                )
+                .formLogin(Customizer.withDefaults())
+                .httpBasic(Customizer.withDefaults());
         return http.build();
     }
 }

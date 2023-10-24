@@ -1,0 +1,30 @@
+{% extends "base" %}
+{% block title %} About Papug {% endblock %}
+{% block content %}
+
+<h1>About Papug</h1>
+
+<div class="row" style="padding-top:5em;">
+    <div class="container mt-5">
+        <table class="table">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Username</th>
+                <th>Role</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for user in allUsers %}
+            <tr>
+                <td>{{user.getId}}</td>
+                <td>{{user.getUsername}}</td>
+                <td>{{user.getRole}}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+</div>
+
+{% endblock %}
