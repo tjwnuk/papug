@@ -1,5 +1,7 @@
 package pl.papug.papug.Account;
 
+import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -8,9 +10,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class AccountController {
 
     @GetMapping("/my-account")
-    public String myAccount(Model model) {
-
-        model.addAttribute("currentPage", "myAccount");
+    public String myAccount(Model model, HttpServletRequest request) {
+        model.addAttribute("user", request.getUserPrincipal());
+        model.addAttribute("currentPage", "myAccount");;
         return "account/details";
     }
 }
