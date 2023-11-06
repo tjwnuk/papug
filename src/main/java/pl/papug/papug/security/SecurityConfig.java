@@ -61,9 +61,9 @@ public class SecurityConfig {
                 .authorizeRequests(authorizeRequests ->
                         authorizeRequests
                                 .requestMatchers("/login").permitAll()
-                                .requestMatchers("/", "/about", "/about/all", "/images/**", "/page", "/post/**", "/page/", "/page/**").permitAll()
+                                .requestMatchers("/", "/about", "/images/**", "/page", "/post/**", "/page/", "/page/**").permitAll()
                                 .requestMatchers("/my-account", "/my-account/**").hasAnyRole("USER", "ADMIN")
-                                .requestMatchers("/admin").hasRole("ADMIN")
+                                .requestMatchers("/admin", "/about/all").hasRole("ADMIN")
                                 .anyRequest().denyAll()
                 )
                 .formLogin(Customizer.withDefaults())
