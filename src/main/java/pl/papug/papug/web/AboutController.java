@@ -1,11 +1,13 @@
 package pl.papug.papug.web;
 
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.ui.Model;
 import pl.papug.papug.model.UserAccount;
 import pl.papug.papug.security.DbUserService;
 
+import java.util.Collection;
 import java.util.List;
 
 @Controller
@@ -13,6 +15,7 @@ import java.util.List;
 public class AboutController {
 
     DbUserService dbUserService;
+    UserDetailsService userDetailsService;
 
     public AboutController(DbUserService dbUserService) {
         this.dbUserService = dbUserService;
@@ -23,6 +26,7 @@ public class AboutController {
 
         String currentPage = "about";
         model.addAttribute("currentPage", currentPage);
+
         return "about/aboutPage";
     }
 
