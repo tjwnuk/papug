@@ -1,6 +1,8 @@
-package pl.papug.papug.Security;
+package pl.papug.papug.security;
 
 import org.springframework.stereotype.Service;
+import pl.papug.papug.model.UserAccount;
+import pl.papug.papug.repository.UserRepository;
 
 import java.util.List;
 

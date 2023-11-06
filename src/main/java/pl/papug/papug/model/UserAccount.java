@@ -1,4 +1,4 @@
-package pl.papug.papug.Security;
+package pl.papug.papug.model;
 
 import jakarta.persistence.*;
 

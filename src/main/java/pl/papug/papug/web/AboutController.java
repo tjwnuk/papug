@@ -1,11 +1,10 @@
-package pl.papug.papug.About;
+package pl.papug.papug.web;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import pl.papug.papug.Security.UserAccount;
-import pl.papug.papug.Security.DbUserService;
+import pl.papug.papug.model.UserAccount;
+import pl.papug.papug.security.DbUserService;
 
 import java.util.List;
 

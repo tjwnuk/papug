@@ -1,4 +1,4 @@
-package pl.papug.papug;
+package pl.papug.papug.web;
 
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;

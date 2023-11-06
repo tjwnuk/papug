@@ -1,4 +1,4 @@
-package pl.papug.papug;
+package pl.papug.papug.web;
 
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;

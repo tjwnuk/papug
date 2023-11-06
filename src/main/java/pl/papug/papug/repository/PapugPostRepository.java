@@ -1,9 +1,8 @@
-package pl.papug.papug.Posts;
+package pl.papug.papug.repository;
 
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
+import pl.papug.papug.model.PapugPostEntity;
 
 import java.util.List;
 

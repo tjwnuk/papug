@@ -1,18 +1,15 @@
-package pl.papug.papug;
+package pl.papug.papug.web;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.springframework.data.web.PageableDefault;
-import org.springframework.data.web.SortDefault;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.ui.Model;
-import pl.papug.papug.Posts.PapugPostEntity;
-import pl.papug.papug.Posts.PapugPostRepository;
-import pl.papug.papug.Posts.PapugPostService;
+import pl.papug.papug.model.PapugPostEntity;
+import pl.papug.papug.repository.PapugPostRepository;
+import pl.papug.papug.service.PapugPostService;
 
 import java.util.List;
 import java.util.Optional;

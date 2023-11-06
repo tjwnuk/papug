@@ -1,4 +1,4 @@
-package pl.papug.papug.Posts;
+package pl.papug.papug.model;
 
 import jakarta.persistence.*;
 import lombok.NoArgsConstructor;

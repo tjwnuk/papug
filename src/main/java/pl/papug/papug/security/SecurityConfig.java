@@ -1,19 +1,15 @@
-package pl.papug.papug;
+package pl.papug.papug.security;
 
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
-import pl.papug.papug.Security.UserRepository;
-import pl.papug.papug.Security.UserManagementRepository;
-import pl.papug.papug.Security.UserAccount;
-import org.springframework.boot.CommandLineRunner;
+import pl.papug.papug.repository.UserRepository;
+import pl.papug.papug.model.UserAccount;
 
 @Configuration
 public class SecurityConfig {

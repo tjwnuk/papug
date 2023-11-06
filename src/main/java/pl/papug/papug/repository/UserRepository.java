@@ -1,9 +1,8 @@
-package pl.papug.papug.Security;
+package pl.papug.papug.repository;
 
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Primary;
 import org.springframework.data.repository.Repository;
-import pl.papug.papug.Security.UserAccount;
+import pl.papug.papug.model.UserAccount;
 
 import java.util.List;
 

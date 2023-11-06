@@ -1,4 +1,4 @@
-package pl.papug.papug.Account;
+package pl.papug.papug.web;
 
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.security.core.userdetails.UserDetails;
