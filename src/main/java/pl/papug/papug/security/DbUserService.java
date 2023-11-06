@@ -20,6 +20,6 @@ public class DbUserService implements UserRepository {
 
     @Override
     public UserAccount findByUsername(String username) {
-        return this.findByUsername(username);
+        return this.userRepository.findByUsername(username);
     }
 }
