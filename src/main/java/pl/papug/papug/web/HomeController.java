@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.ui.Model;
 import pl.papug.papug.model.PapugPostEntity;
 import pl.papug.papug.repository.PapugPostRepository;
+import pl.papug.papug.service.AuthService;
 import pl.papug.papug.service.PapugPostService;
 
 import java.util.List;
@@ -19,10 +20,14 @@ public class HomeController {
 
     private PapugPostRepository papugPostRepository = null;
     private PapugPostService papugPostService = null;
+    private AuthService authService = null;
 
-    HomeController(PapugPostRepository papugPostRepository, PapugPostService papugPostService) {
+    HomeController(PapugPostRepository papugPostRepository,
+                   PapugPostService papugPostService,
+                   AuthService authService) {
         this.papugPostRepository = papugPostRepository;
         this.papugPostService = papugPostService;
+        this.authService = authService;
     }
 
     @RequestMapping(value={"/", "/page", "/page/{page}"}, method = RequestMethod.GET)
@@ -44,6 +49,8 @@ public class HomeController {
         Page pageContent = papugPostRepository.findAll(pageable);
         List<PapugPostEntity> posts = pageContent.toList();
 
+        model.addAttribute("userIsLogged", this.authService.isLogged());
+        model.addAttribute("user", this.authService.getUser());
         model.addAttribute("posts", posts);
         model.addAttribute("pageNumber", pageNumber);
         model.addAttribute("numberOfAllPages", numberOfAllPages);
