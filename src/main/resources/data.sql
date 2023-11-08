@@ -91,3 +91,11 @@ VALUES
     (89, 'Sunday spent baking bird-friendly treats for my parrot. They deserve the best! 🧁🐦 #HomemadeTreats', 'Baking Delights for My Parrot', '2023-08-29 20:35:00'),
     (90, 'Introduced my parrot to a mirror. Their reaction was a mix of curiosity and confusion! 🦜🪞 #MirrorPlay', 'Parrot''s Encounter with the Mirror', '2023-08-30 05:00:00')
     ON CONFLICT (id) DO NOTHING;
+
+-- Insert the "ROLE_ADMIN" role into the "user_account" table (if it doesn't exist)
+INSERT INTO user_account (id, username, password, role) VALUES (1, 'admin', 'pass', 'ROLE_ADMIN') ON CONFLICT (username) DO NOTHING;
+
+-- Insert the "ROLE_USER" role into the "user_account" table (if it doesn't exist)
+INSERT INTO user_account (id, username, password, role) VALUES (2, 'user', 'pass', 'ROLE_USER') ON CONFLICT (username) DO NOTHING;
+INSERT INTO user_account (id, username, password, role) VALUES (3, 'alice', 'pass', 'ROLE_USER') ON CONFLICT (username) DO NOTHING;
+INSERT INTO user_account (id, username, password, role) VALUES (4, 'bob', 'pass', 'ROLE_USER') ON CONFLICT (username) DO NOTHING;

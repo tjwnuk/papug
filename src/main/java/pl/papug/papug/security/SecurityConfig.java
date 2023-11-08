@@ -15,22 +15,6 @@ import pl.papug.papug.model.UserAccount;
 
 @Configuration
 public class SecurityConfig {
-
-//    @Bean
-//    CommandLineRunner initUsers(UserManagementRepository repository) {
-//        return args -> {
-//            repository.save(new UserAccount("admin", "pass", "ROLE_ADMIN"));
-//            repository.save(new UserAccount("user", "pass", "ROLE_USER"));
-//            repository.save(new UserAccount("alice", "pass", "ROLE_USER"));
-//            repository.save(new UserAccount("bob", "pass", "ROLE_USER"));
-//        };
-//    }
-
-//    @Bean
-//    UserDetailsService userService(UserRepository repo) {
-//        return username -> repo.findByUsername(username).asUser();
-//    }
-
     private UserRepository userRepository;
 
     public SecurityConfig(UserRepository userRepository) {
