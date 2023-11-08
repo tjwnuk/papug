@@ -10,6 +10,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import pl.papug.papug.service.AuthService;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -21,23 +22,18 @@ public class AccountController {
     @Autowired
     UserDetailsService userDetailsService;
 
+    @Autowired
+    AuthService authService;
+
     @GetMapping("/my-account")
     public String myAccount(Model model, HttpServletRequest request) {
         model.addAttribute("user", request.getUserPrincipal());
         model.addAttribute("currentPage", "myAccount");;
 
+        model.addAttribute("userIsLogged", this.authService.isLogged());
+        model.addAttribute("user", this.authService.getUser());
+
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-
-        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-        Collection<? extends GrantedAuthority> authorities = userDetails.getAuthorities();
-
-        List<String> roles = new ArrayList<String>();
-
-        for (GrantedAuthority ga : authorities) {
-            roles.add(ga.toString());
-        }
-
-        model.addAttribute("roles", roles);
 
         return "account/details";
     }

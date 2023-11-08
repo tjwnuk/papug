@@ -9,9 +9,23 @@
 
         <ul class="nav nav-pills">
             <li class="nav-item"><a href="/" class="nav-link {% if currentPage=='index'%}active{% endif %}" aria-current="page">Main</a></li>
-            <li class="nav-item"><a href="/my-account" class="nav-link {% if currentPage=='myAccount'%}active{% endif %}">My account</a></li>
             <!--            <li class="nav-item"><a href="#" class="nav-link">FAQs</a></li>-->
             <li class="nav-item"><a href="/about" class="nav-link {% if currentPage=='about'%}active{% endif %}">About</a></li>
+            {% if userIsLogged %}
+            <li class="nav-item"><a href="/my-account" class="nav-link link-dark {% if currentPage=='myAccount'%}active{% endif %}">{{ user.getUsername() }}</a></li>
+            <li class="nav-item"><a href="/logout" class="nav-link">Logout</a></li>
+            {% endif %}
+            {% if not userIsLogged %}
+            <li class="Nav-item"><a href="/login" class="nav-link">Login</a></li>
+            {% endif %}
         </ul>
     </header>
 </div>
+
+
+<!--{% if userIsLogged %}-->
+<!--You're logged as {{ user.getUsername() }}-->
+<!--{% endif %}-->
+<!--{% if not userIsLogged %}-->
+<!--You're not logged.-->
+<!--{% endif %}-->

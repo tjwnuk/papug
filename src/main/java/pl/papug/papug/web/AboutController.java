@@ -1,11 +1,13 @@
 package pl.papug.papug.web;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.ui.Model;
 import pl.papug.papug.model.UserAccount;
 import pl.papug.papug.security.DbUserService;
+import pl.papug.papug.service.AuthService;
 
 import java.util.Collection;
 import java.util.List;
@@ -15,7 +17,11 @@ import java.util.List;
 public class AboutController {
 
     DbUserService dbUserService;
+
     UserDetailsService userDetailsService;
+
+    @Autowired
+    AuthService authService;
 
     public AboutController(DbUserService dbUserService) {
         this.dbUserService = dbUserService;
@@ -26,6 +32,9 @@ public class AboutController {
 
         String currentPage = "about";
         model.addAttribute("currentPage", currentPage);
+
+        model.addAttribute("userIsLogged", this.authService.isLogged());
+        model.addAttribute("user", this.authService.getUser());
 
         return "about/aboutPage";
     }

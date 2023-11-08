@@ -4,13 +4,6 @@
 
 <!--<p>hello world</p>-->
 
-Your username: {{ user.name }} <br>
-
-Your authoritires:
-<ul>
-    {% for role in roles %}
-    <li>{{ role }}</li>
-    {% endfor %}
-</ul>
+Your username: {{ user.getUsername() }} <br>
 
 {% endblock %}

@@ -70,6 +70,10 @@ public class HomeController {
         }
 
         model.addAttribute("post", post.get());
+
+        model.addAttribute("userIsLogged", this.authService.isLogged());
+        model.addAttribute("user", this.authService.getUser());
+        
         return "posts/viewPost";
     }
 
