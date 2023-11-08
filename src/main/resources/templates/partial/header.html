@@ -10,6 +10,9 @@
         <ul class="nav nav-pills">
             <li class="nav-item"><a href="/" class="nav-link {% if currentPage=='index'%}active{% endif %}" aria-current="page">Main</a></li>
             <!--            <li class="nav-item"><a href="#" class="nav-link">FAQs</a></li>-->
+            {% if userIsLogged %}
+            <li class="nav-item"><a href="/new-post" class="nav-link {% if currentPage=='new-post'%}active{% endif %}">New</a></li>
+            {% endif %}
             <li class="nav-item"><a href="/about" class="nav-link {% if currentPage=='about'%}active{% endif %}">About</a></li>
             {% if userIsLogged %}
             <li class="nav-item"><a href="/my-account" class="nav-link link-dark {% if currentPage=='myAccount'%}active{% endif %}">{{ user.getUsername() }}</a></li>
