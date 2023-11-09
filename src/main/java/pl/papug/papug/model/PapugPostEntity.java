@@ -10,7 +10,7 @@ import java.util.Date;
 @NoArgsConstructor
 public class PapugPostEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String title;
 
@@ -21,11 +21,13 @@ public class PapugPostEntity {
     @Column(columnDefinition = "TIMESTAMP")
     @CreationTimestamp
     private Date date;
+    private String userAccount;
 
-    PapugPostEntity(String title, String content) {
-        this.id = null;
+    public PapugPostEntity(String title, String content, String userAccount) {
+//        this.id = null;
         this.title = title;
         this.content = content;
+        this.userAccount = userAccount;
     }
 
     public Long getId() {
@@ -52,4 +54,11 @@ public class PapugPostEntity {
         this.content = newContent;
     }
 
+    public String getUserAccount() {
+        return userAccount;
+    }
+
+    public void setUserAccount(String userAccount) {
+        this.userAccount = userAccount;
+    }
 }
