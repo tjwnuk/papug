@@ -5,5 +5,10 @@
 <!--<p>hello world</p>-->
 
 Your username: {{ user.getUsername() }} <br>
-
+<h3>Your posts</h3>
+{% for post in posts %}
+<ul>
+    <li><a href="/post/{{post.getId()}}">{{post.getTitle()}}</a></li>
+</ul>
+{% endfor %}
 {% endblock %}

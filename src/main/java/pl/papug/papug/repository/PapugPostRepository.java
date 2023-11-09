@@ -12,5 +12,6 @@ public interface PapugPostRepository extends JpaRepository<PapugPostEntity, Long
 
 //    Page<PapugPostEntity> findAll(Pageable pageable);
     List<PapugPostEntity> findByTitle(String title);
+    List<PapugPostEntity> findByUserAccount(String username);
 
 }

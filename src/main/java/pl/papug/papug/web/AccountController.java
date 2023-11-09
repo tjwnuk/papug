@@ -10,6 +10,9 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import pl.papug.papug.model.PapugPostEntity;
+import pl.papug.papug.model.UserAccount;
+import pl.papug.papug.repository.PapugPostRepository;
 import pl.papug.papug.service.AuthService;
 
 import java.util.ArrayList;
@@ -21,9 +24,10 @@ public class AccountController {
 
     @Autowired
     UserDetailsService userDetailsService;
-
     @Autowired
     AuthService authService;
+    @Autowired
+    PapugPostRepository papugPostRepository;
 
     @GetMapping("/my-account")
     public String myAccount(Model model, HttpServletRequest request) {
@@ -33,7 +37,13 @@ public class AccountController {
         model.addAttribute("userIsLogged", this.authService.isLogged());
         model.addAttribute("user", this.authService.getUser());
 
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        UserAccount user = authService.getUser();
+        String username = user.getUsername();
+
+        List<PapugPostEntity> posts = papugPostRepository.findByUserAccount(username);
+        model.addAttribute("posts", posts);
+
+//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
         return "account/details";
     }
