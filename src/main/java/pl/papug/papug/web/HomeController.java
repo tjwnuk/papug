@@ -51,6 +51,12 @@ public class HomeController {
 
         model.addAttribute("userIsLogged", this.authService.isLogged());
         model.addAttribute("user", this.authService.getUser());
+
+//        if (this.authService.isLogged()) {
+//            boolean isMod = this.authService.getUser().isMod();
+//            model.addAttribute("userIsMod", isMod);
+//        }
+
         model.addAttribute("posts", posts);
         model.addAttribute("pageNumber", pageNumber);
         model.addAttribute("numberOfAllPages", numberOfAllPages);
@@ -73,6 +79,10 @@ public class HomeController {
 
         model.addAttribute("userIsLogged", this.authService.isLogged());
         model.addAttribute("user", this.authService.getUser());
+
+        if (this.authService.getUser().isMod()) {
+            model.addAttribute("userIsMod", true);
+        }
         
         return "posts/viewPost";
     }

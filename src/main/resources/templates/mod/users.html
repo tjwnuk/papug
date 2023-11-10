@@ -1,0 +1,42 @@
+{% extends "base" %}
+{% block title %} About Papug {% endblock %}
+{% block content %}
+
+<h1>About Papug</h1>
+
+<div class="row" style="padding-top:5em;">
+    <div class="container mt-5">
+        <table class="table">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Username</th>
+                <th>Role</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for user in users %}
+            <tr>
+                <td>{{user.getId}}</td>
+                <td>{{user.getUsername}}</td>
+                <td>{{user.getRole}}</td>
+                <td>
+                    {% if user.getRole != "ROLE_ADMIN" %}
+                    <a class="btn btn-danger" href="/mod/users/delete/{{ user.getId() }}">Delete</a>
+                    {% if not user.isMod() %}
+                    <a class="btn btn-secondary" href="/mod/users/setmod/{{ user.getUsername() }}">Set moderator</a>
+                    {% endif %}
+                    {% if user.isMod() %}
+                    <a class="btn btn-warning" href="/mod/users/unsetmod/{{ user.getUsername() }}">Unset moderator</a>
+                    {% endif %}
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+</div>
+
+{% endblock %}

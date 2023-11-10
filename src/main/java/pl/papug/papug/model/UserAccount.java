@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import java.util.*;
 
 import lombok.Getter;
+import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -23,6 +24,7 @@ public class UserAccount implements UserDetails {
     @Getter
     private String password;
     @Getter
+    @Setter
     private String role;
     @ElementCollection(fetch = FetchType.EAGER) //
     private List<GrantedAuthority> authorities = //
@@ -47,6 +49,23 @@ public class UserAccount implements UserDetails {
                 .password(getPassword()) //
                 .authorities(getAuthorities()) //
                 .build();
+    }
+
+    public boolean isMod() {
+        String role = this.getRole();
+
+        if (role.equals("ROLE_MOD")) {
+            return true;
+        }
+        return false;
+    }
+    public boolean isAdmin() {
+        String role = this.getRole();
+
+        if (role.equals("ROLE_ADMIN")) {
+            return true;
+        }
+        return false;
     }
 
     public void setId(Long id) {

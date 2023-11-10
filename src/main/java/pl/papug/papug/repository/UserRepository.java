@@ -11,4 +11,5 @@ public interface UserRepository extends CrudRepository<UserAccount, Long> {
     UserAccount findByUsername(String username);
     List<UserAccount> findAll();
     UserAccount save(UserAccount user);
+    void delete(UserAccount user);
 }

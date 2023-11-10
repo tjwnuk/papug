@@ -30,8 +30,8 @@ public class AboutController {
 
         String currentPage = "about";
         model.addAttribute("currentPage", currentPage);
-
         model.addAttribute("userIsLogged", this.authService.isLogged());
+
         model.addAttribute("user", this.authService.getUser());
 
         return "about/aboutPage";
