@@ -6,7 +6,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.ui.Model;
 import pl.papug.papug.model.UserAccount;
-import pl.papug.papug.security.DbUserService;
 import pl.papug.papug.service.AuthService;
 
 import java.util.Collection;
@@ -16,15 +15,14 @@ import java.util.List;
 //@RequestMapping("/about")
 public class AboutController {
 
-    DbUserService dbUserService;
 
     UserDetailsService userDetailsService;
 
     @Autowired
     AuthService authService;
 
-    public AboutController(DbUserService dbUserService) {
-        this.dbUserService = dbUserService;
+    public AboutController(AuthService authService) {
+        this.authService = authService;
     }
 
     @GetMapping("/about")
@@ -46,7 +44,7 @@ public class AboutController {
      */
         String currentPage = "about";
         model.addAttribute("currentPage", currentPage);
-        List<UserAccount> allUsers = dbUserService.findAll();
+        List<UserAccount> allUsers = this.authService.findAll();
         model.addAttribute("allUsers", allUsers);
 
         return "about/allUsers";

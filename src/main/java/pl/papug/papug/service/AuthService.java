@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 import pl.papug.papug.model.UserAccount;
 import pl.papug.papug.repository.UserRepository;
 
+import java.util.List;
+
 @Service
 public class AuthService {
     UserDetailsService userDetailsService;
@@ -27,9 +29,24 @@ public class AuthService {
 
     public UserAccount getUser() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-//        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         String username = authentication.getName();
 
         return userRepository.findByUsername(username);
+    }
+
+    public UserAccount register(String username, String password) {
+        UserAccount newUser = new UserAccount(username, password, "ROLE_USER");
+        UserAccount result = userRepository.save(newUser);
+
+        return result;
+    }
+
+    public boolean userExists(String username) {
+        UserAccount user = this.userRepository.findByUsername(username);
+        return user != null;
+    }
+
+    public List<UserAccount> findAll() {
+        return this.userRepository.findAll();
     }
 }

@@ -1,3 +1,7 @@
+---- CLEAN OLD DATA
+--drop table papug_post_entity ; drop sequence papug_post_entity_id_seq ; drop table user_account CASCADE; drop sequence user_account_seq;
+--drop table user_account_authorities ;
+
 INSERT INTO papug_post_entity (id, content, title, date)
 VALUES
     (1, 'Just adopted the cutest parrot! 🐦❤️ #ParrotLove #NewFeatheredFriend', 'Meet My New Parrot Friend', '2023-06-01 00:00:00'),
@@ -33,3 +37,5 @@ INSERT INTO user_account (id, username, password, role) VALUES (1, 'admin', 'pas
 INSERT INTO user_account (id, username, password, role) VALUES (2, 'user', 'pass', 'ROLE_USER') ON CONFLICT (username) DO NOTHING;
 INSERT INTO user_account (id, username, password, role) VALUES (3, 'alice', 'pass', 'ROLE_USER') ON CONFLICT (username) DO NOTHING;
 INSERT INTO user_account (id, username, password, role) VALUES (4, 'bob', 'pass', 'ROLE_USER') ON CONFLICT (username) DO NOTHING;
+
+SELECT setval('user_account_seq', (SELECT MAX(id) FROM user_account));
