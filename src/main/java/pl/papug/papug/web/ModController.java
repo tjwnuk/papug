@@ -1,16 +1,12 @@
 package pl.papug.papug.web;
 
-import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.ResponseBody;
 import pl.papug.papug.model.UserAccount;
 import pl.papug.papug.repository.PapugPostRepository;
-import pl.papug.papug.repository.UserRepository;
 import pl.papug.papug.service.AuthService;
 import pl.papug.papug.service.UserService;
 
@@ -32,11 +28,6 @@ public class ModController {
         model.addAttribute("currentPage", currentPage);
         model.addAttribute("user", this.authService.getUser());
         model.addAttribute("userIsLogged", this.authService.isLogged());
-
-//        if (this.authService.isLogged()) {
-//            boolean isMod = this.authService.getUser().isMod();
-//            model.addAttribute("userIsMod", isMod);
-//        }
 
         List<UserAccount> allUsers = userService.findAll();
 
@@ -70,7 +61,5 @@ public class ModController {
                              @PathVariable Long id) {
         this.papugPostRepository.deleteById(id);
         return "redirect:/";
-//        return "delete post " + id.toString();
     }
-
 }

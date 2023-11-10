@@ -36,8 +36,7 @@ public class HomeController {
             page = 0;
         }
         Pageable pageable;
-//        Sort descending
-        Sort sort = Sort.by(Sort.Order.desc("id"));
+        Sort sort = Sort.by(Sort.Order.desc("id"));  // Sort descending
 
         Integer pageSize = 10;
 
@@ -52,10 +51,6 @@ public class HomeController {
         model.addAttribute("userIsLogged", this.authService.isLogged());
         model.addAttribute("user", this.authService.getUser());
 
-//        if (this.authService.isLogged()) {
-//            boolean isMod = this.authService.getUser().isMod();
-//            model.addAttribute("userIsMod", isMod);
-//        }
 
         model.addAttribute("posts", posts);
         model.addAttribute("pageNumber", pageNumber);
@@ -84,10 +79,6 @@ public class HomeController {
             model.addAttribute("userIsMod", this.authService.getUser().isMod());
             model.addAttribute("userIsAdmin", this.authService.getUser().isAdmin());
         }
-
-//        if (this.authService.getUser().isMod()) {
-//            model.addAttribute("userIsMod", true);
-//        }
         
         return "posts/viewPost";
     }
