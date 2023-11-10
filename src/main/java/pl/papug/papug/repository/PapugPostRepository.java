@@ -14,4 +14,6 @@ public interface PapugPostRepository extends JpaRepository<PapugPostEntity, Long
     List<PapugPostEntity> findByTitle(String title);
     List<PapugPostEntity> findByUserAccount(String username);
 
+    void deleteById(Long id);
+
 }

@@ -3,6 +3,9 @@
 {% block content %}
 
 <h4>{{ post.getUserAccount()}}</h4>
+{% if userIsMod or userIsAdmin %}
+<a href="/mod/post/{{post.getId()}}/delete" class="btn btn-danger">Delete</a>
+{% endif %}
 <h3>{{ post.getTitle()}}</h3>
 <p>{{ post.getContent()}}</p>
 

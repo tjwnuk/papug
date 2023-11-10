@@ -7,7 +7,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.ResponseBody;
 import pl.papug.papug.model.UserAccount;
+import pl.papug.papug.repository.PapugPostRepository;
 import pl.papug.papug.repository.UserRepository;
 import pl.papug.papug.service.AuthService;
 import pl.papug.papug.service.UserService;
@@ -18,6 +20,8 @@ import java.util.List;
 public class ModController {
     @Autowired
     AuthService authService;
+    @Autowired
+    PapugPostRepository papugPostRepository;
     @Autowired
     UserService userService;
 
@@ -60,4 +64,13 @@ public class ModController {
 
         return "redirect:/mod/users";
     }
+
+    @GetMapping("/mod/post/{id}/delete")
+    public String deletePost(Model model,
+                             @PathVariable Long id) {
+        this.papugPostRepository.deleteById(id);
+        return "redirect:/";
+//        return "delete post " + id.toString();
+    }
+
 }

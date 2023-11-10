@@ -80,9 +80,14 @@ public class HomeController {
         model.addAttribute("userIsLogged", this.authService.isLogged());
         model.addAttribute("user", this.authService.getUser());
 
-        if (this.authService.getUser().isMod()) {
-            model.addAttribute("userIsMod", true);
+        if (this.authService.getUser() != null) {
+            model.addAttribute("userIsMod", this.authService.getUser().isMod());
+            model.addAttribute("userIsAdmin", this.authService.getUser().isAdmin());
         }
+
+//        if (this.authService.getUser().isMod()) {
+//            model.addAttribute("userIsMod", true);
+//        }
         
         return "posts/viewPost";
     }
